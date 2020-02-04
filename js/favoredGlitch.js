@@ -9,7 +9,7 @@ const favoredGlitch = (function () {
 
         const candidateCount = $('fieldset.' + name).find('input').length;
         const weightOffset = candidateCount > 2 ? Math.floor(candidateCount / 2) : 0;
-        const glitchWeight = candidateCount > 1 ? 1 / (candidateCount - weightOffset) : 0;
+        const glitchWeight = candidateCount > 1 ? 1 / (candidateCount - weightOffset) + 0.05 : 0;
 
         if (!isPreferred && weightedGlitch < glitchWeight) {
             $('fieldset.' + name).find('input.preferred').click();
