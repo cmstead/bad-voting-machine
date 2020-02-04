@@ -1,7 +1,7 @@
 const voterForm = (function () {
     
     function buildCandidateRadioButton(candidate, candidateId, positionKey) {
-        return $('<input>')
+        const radioButton = $('<input>')
             .attr({
                 type: 'radio',
                 value: candidate.name,
@@ -10,10 +10,16 @@ const voterForm = (function () {
                 "data-preferred": candidate.preferred
             })
             .addClass('candidate-radio');
+
+        if(candidate.preferred) {
+            radioButton.addClass('preferred');
+        }
+
+        return radioButton;
     }
 
     function buildCandidateLabel(candidate, candidateId) {
-        return $('<label>' + candidate.name + '(' + candidate.party + ')</label>')
+        return $('<label>' + candidate.name + ' (' + candidate.party + ')</label>')
             .attr({
                 for: candidateId
             })
@@ -31,10 +37,10 @@ const voterForm = (function () {
     }
 
     function buildPositionForm(position) {
-        const positionSet = $('<fieldset>')
-            .append('<legend>' + position.position + '</legend>');
-
         const positionKey = position.position.toLowerCase().replace(/\s+/, '-');
+        
+        const positionSet = $('<fieldset class="' + positionKey + '">')
+            .append('<legend>Office: ' + position.position + '</legend>');
 
         position.candidates.forEach(function (candidate) {
             const candidateSelection = buildCandidateSelection(candidate, positionKey);
